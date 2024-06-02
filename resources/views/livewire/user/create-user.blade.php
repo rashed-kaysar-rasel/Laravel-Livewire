@@ -6,7 +6,7 @@
             </h3>
             <div class="mt-2">
                 @if (session()->has('message'))
-                    <div class="alert alert-success">{{ session('message') }}</div>
+                    <div class="text-green-600">{{ session('message') }}</div>
                 @endif
 
                 <form wire:submit.prevent="submit">

@@ -7,6 +7,7 @@ use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
 use LivewireUI\Modal\ModalComponent;
+use Symfony\Component\Mailer\DelayedEnvelope;
 
 class CreateUser extends ModalComponent
 {
@@ -36,9 +37,11 @@ class CreateUser extends ModalComponent
 
 
 
-        $this->reset(['name', 'email', 'password']);
+        $this->reset();
 
-        // $this->emit('userCreated');
+        $this->dispatch('userCreated');
+        
+        $this->closeModal();
     }
 
     public function render()
