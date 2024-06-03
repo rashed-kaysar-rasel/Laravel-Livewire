@@ -35,8 +35,6 @@ class CreateUser extends ModalComponent
 
         session()->flash('message', 'User created successfully.');
 
-
-
         $this->reset();
 
         $this->dispatch('userCreated');

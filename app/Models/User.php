@@ -53,5 +53,9 @@ class User extends Authenticatable
     {
         return $this->roles()->where('slug', $role)->exists();
     }
+
+    public function scopeSearch($query, $value){
+        $query->where('name','like',"%{$value}%")->orWhere('email','like',"%{$value}%");
+    }
     
 }
