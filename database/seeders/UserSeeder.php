@@ -26,14 +26,15 @@ class UserSeeder extends Seeder
         // Assign the "admin" role to the user
         $user->roles()->attach(Role::where('slug', 'admin')->first());
 
-        $user = User::create([
-            'name' => 'Rashed',
-            'email' => 'rashedkaysar321@gmail.com',
-            'password' => Hash::make('45625899'),
-        ]);
-        
-        // Assign the "admin" role to the user
-        $user->roles()->attach(Role::where('slug', 'user')->first());
+        foreach (range(1, 50) as $index) {
+            //Reguler User
+            $user = User::create([
+                'name'=> 'user-'.$index,
+                'email'=>'user-'.$index.'@dstudio.asia',
+                'password'=>Hash::make('45625899')
+            ]);
+            $user->roles()->attach(Role::where('slug', 'user')->first());
+        }
     }
 }
 
