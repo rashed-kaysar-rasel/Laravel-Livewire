@@ -7,26 +7,37 @@ use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
 use LivewireUI\Modal\ModalComponent;
-use Symfony\Component\Mailer\DelayedEnvelope;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class CreateUser extends ModalComponent
 {
+    use WithFileUploads;
 
-    public $name, $email, $password;
+    public $name, $email, $password, $image;
 
     protected $rules = [
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:8',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ];
 
     public function submit()
     {
         $this->validate();
 
+        $s3Path = "none";
+
+        if ($this->image) {
+            $path = $this->image->store('user-images', 's3');
+            $s3Path = Storage::disk('s3')->url($path);
+        }
+
         $user = User::create([
             'name' => $this->name,
             'email' => $this->email,
+            'image' => $s3Path,
             'password' => Hash::make($this->password),
         ]);
         

@@ -11,6 +11,13 @@
 
                 <form wire:submit.prevent="submit">
                     <div class="mb-4">
+                        <label for="image" class="block text-gray-700">User Image</label>
+                        <input type="file" wire:model="image" id="image" class="form-input mt-1 block w-full">
+                        @error('image')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-4">
                         <label for="name" class="block text-gray-700">Name</label>
                         <input type="text" wire:model="name" id="name" class="form-input mt-1 block w-full">
                         @error('name')
