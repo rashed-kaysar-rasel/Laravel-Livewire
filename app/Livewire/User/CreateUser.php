@@ -33,13 +33,14 @@ class CreateUser extends ModalComponent
         // Assign the "admin" role to the user
         $user->roles()->attach(Role::where('slug', 'user')->first());
 
-        session()->flash('message', 'User created successfully.');
+        session()->flash('message', 'User successfully created.');
 
-        $this->reset();
-
+        // Reset the form fields and make sure they are emptied
+        $this->reset(['name', 'email', 'password']);
+        
         $this->dispatch('userCreated');
         
-        $this->closeModal();
+        // $this->closeModal();
     }
 
     public function render()

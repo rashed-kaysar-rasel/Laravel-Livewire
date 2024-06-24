@@ -12,7 +12,14 @@ class UserTable extends Component
     use WithPagination, WithoutUrlPagination; 
     public $search = '';
     public $perPage = 10;
-
+    protected $listeners = ['userUpdated' => '$refresh'];
+    
+    public function edit(User $user){
+        $user->delete();
+    }
+    public function delete(User $user){
+        $user->delete();
+    }
     public function render()
     {
         return view('livewire.user.user-table',[
