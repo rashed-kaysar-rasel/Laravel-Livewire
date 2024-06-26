@@ -8,11 +8,22 @@
                 @if (session()->has('message'))
                     <div class="text-green-600">{{ session('message') }}</div>
                 @endif
-
+                <div class="flex justify-center gap-4 mb-10">
+                    @if ($image)
+                        <img src="{{ url($image) }}" class="w-40 h-40 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500">
+                    @endif
+                </div>
                 <form wire:submit.prevent="submit">
                     <div class="mb-4">
+                        <label for="newImage" class="block text-gray-700">User Image</label>
+                        <input type="file" wire:model="newImage" id="newImage" class="form-input mt-1 block w-full">
+                        @error('newImage')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-4">
                         <label for="name" class="block text-gray-700">Name</label>
-                        <input type="text" wire:model="name" id="name"  class="form-input mt-1 block w-full">
+                        <input type="text" wire:model="name" id="name" class="form-input mt-1 block w-full">
                         @error('name')
                             <span class="text-red-500">{{ $message }}</span>
                         @enderror
@@ -20,7 +31,7 @@
 
                     <div class="mb-4">
                         <label for="email" class="block text-gray-700">Email</label>
-                        <input type="email" wire:model="email" id="email"  class="form-input mt-1 block w-full">
+                        <input type="email" wire:model="email" id="email" class="form-input mt-1 block w-full">
                         @error('email')
                             <span class="text-red-500">{{ $message }}</span>
                         @enderror

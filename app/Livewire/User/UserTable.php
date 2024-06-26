@@ -14,9 +14,14 @@ class UserTable extends Component
     public $perPage = 10;
     protected $listeners = ['userUpdated' => '$refresh'];
     
-    public function edit(User $user){
-        $user->delete();
+    public function updatingPerPage()
+    {
+        $this->resetPage();
     }
+
+    // public function edit(User $user){
+    //     $user->delete();
+    // }
     public function delete(User $user){
         $user->delete();
     }
